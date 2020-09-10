@@ -30,7 +30,7 @@ void help()
 {
   printf("HELP MENU\n");
   printf("cd                         :Change directory\n");
-  printf("cd ..                       :Go to parent directory\n");
+  printf("cd ..                      :Go to parent directory\n");
   printf("ls                         :Directory listing\n");
   printf("mkdir 'directory_name'     :Make directory\n");
   printf("touch 'file_name'          :Make file\n");
