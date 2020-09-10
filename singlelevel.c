@@ -1,63 +1,65 @@
 #include <stdio.h>
 #include <string.h>
-
 struct Dir {
-	char dname[10], filename[10][10];
-	int fno;
-} file; 
-
+	    char dirname[10], listname[10][10];
+	    int lnum;
+           } list; 
 int main() {
-	int i, ch;
-	char fsearch[20];
+        int j, ch;
+	char lscan[20];
   int flag;
 	printf("Enter the name of directory : ");
-	scanf("%s", file.dname);
-  printf("Select Operation: \n 1. INSERT FILE \n 2. DELETE FILE \n 3. DISPLAY FILES \n 4. SEARCH FILE\n 5. EXIT \n");
+	scanf("%s", list.dirname);
+  printf("Select Operation: \n 1. Insert file \n 2. Delete file \n 3. Display file \n 4. Search file \n 5. Exit \n");
 	while(1) {
 	  printf(">> ");
     scanf("%d", &ch);
-	  switch(ch) {
-		  case 1:   printf("[NEW] File Name : ");
-				        scanf("%s", file.filename[file.fno]);
-				        file.fno++;
+	  switch(ch) 
+ {
+       case 1:   printf(" File Name : ");
+				        scanf("%s", list.listname[list.lnum]);
+				        list.lnum++;
 				        break;
-
-		  case 2:   printf("[DELETE] File Name : ");
-				        scanf("%s", fsearch);
-				        for(i=0;i<10;i++) {
-					        if(strcmp(fsearch,file.filename[i])==0) {
-						        strcpy(file.filename[i],"NULL");
-						        printf("File %s is deleted\n", fsearch);
-						        break;
-				        	}
+       case 2:   printf(" File Name : ");
+				        scanf("%s", lscan);
+				        for(j=0;j<10;j++) {
+		 			        if(strcmp(lscan,list.listname[j])==0) 
+					  {
+				           strcpy(list.listname[j],"NULL");
+				           printf("File %s is deleted\n", lscan);
+				           break;
+				          }
 				        }
 				        break;
 
-		  case 3:   printf("Files in directory %s:\n", file.dname);
-				        for(i=0;i<file.fno;i++) {
-                  if(strcmp("NULL",file.filename[i])==0) continue;
-					        printf("%s  ", file.filename[i]);
+       case 3:   printf("Files in directory %s:\n", list.dirname);
+				        for(j=0;j<list.lnum;j++)
+					{
+                  if(strcmp("NULL",list.listname[j])==0) continue;
+					     printf("%s  ", list.listname[j]);
 				        }
                 printf("\n");
 				        break;
 		  
-      case 4:   printf("[SEARCH] File Name : ");
-				        scanf("%s",fsearch);
-                flag = 1;  
-				        for(i=0;i<10;i++) {
-					        if(strcmp(fsearch,file.filename[i])==0) {
-						        printf("File %s is found\n", file.filename[i]);
-                    flag = 0;
+       case 4:   printf("[SEARCH] File Name : ");
+		        scanf("%s",lscan);
+                        flag = 1;  
+			   for(j=0;j<10;j++) 
+			    {
+		              if(strcmp(lscan,list.listname[j])==0) {
+	                      printf("File %s is found\n", list.listname[j]);
+                      flag = 0;
                   }
                 }
-                if(flag) {
-                  printf("File not found\n");
+                if(flag)
+		{
+                  printf("FILE UNAVAILABLE\n");
                 }
                 break;
       
       case 5:   return 0;
                 break;
-    }
-	}
-	return 0;
+   }
+ }
+return 0;
 }
