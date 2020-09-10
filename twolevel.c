@@ -27,7 +27,7 @@ case 1: printf("Enter the name of the directory: ");
               }
             printf("empty");
             break;
-case 2: printf("Select the directory to store file: ");
+case 2: printf("Select the directory to store file:");
                    scanf("%s",dname);
                   for(int i=0;i<50;i++)
                 {  
