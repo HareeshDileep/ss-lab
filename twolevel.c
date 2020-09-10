@@ -23,7 +23,7 @@ case 1: printf("Enter the name of the directory: ");
                if(strcmp(d[i].dname,"\0")==0)
               {
                 strcpy(d[i].dname,dname);
-                menu();
+                sub();
               }
             printf("empty");
             break;
@@ -40,7 +40,7 @@ case 2: printf("Select the directory to store file:");
                   {
                     strcpy(d[i].files[j],file_name);
                     printf("File is created");
-                    menu();
+                    sub();
                   }
               }
             }
@@ -55,7 +55,7 @@ case 2: printf("Select the directory to store file:");
                   for(int j=0;j<50;j++)
                       if(strcmp(d[i].files[j],"\0")!=0)
                         printf("%s\n",d[i].files[j]);
-                  menu();
+                  sub();
                 }
               }
               printf("Directory is unavailable");
@@ -67,7 +67,7 @@ case 4: printf("Select directory to delete: ");
                  {
                    strcpy(d[i].dname,"\0");
                    printf("Directory is deleted");
-                   menu();
+                   sub();
                 }
               break;
 case 5: printf("Select directory to delete file: ");
@@ -83,10 +83,10 @@ case 5: printf("Select directory to delete file: ");
                       {
                         strcpy(d[i].files[j],"\0");
                         printf("The file is deleted");
-                        menu();
+                        sub();
                      }
                    printf("File is not available");
-                  menu();
+                  sub();
                 }
                }
               printf("Directory is unavailable");
@@ -104,10 +104,10 @@ case 6: printf("Enter file to search for: ");
               }
              }
             }
-                if(strcmp(dir_name,"#FOUND")!=0)
+                if(strcmp(dname,"#FOUND")!=0)
                   printf("File is unavailable");
                 break;
-     default: menu();
+     default: sub();
   }
   sub();
 }
