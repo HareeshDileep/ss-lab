@@ -13,7 +13,7 @@ bool finished_execution()
     not_enough_resources++;
     if(not_enough_resources>number_of_processes+1)
     {
-        printf("\n\n ERROR OCCURED: NOT ENOUGH RESOURCES\n");
+         printf("\n\n ERROR OCCURED: NOT ENOUGH RESOURCES\n");
         exit(0);
     }
     for(int i=0;i<number_of_processes;i++)
