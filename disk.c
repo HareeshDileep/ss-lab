@@ -11,7 +11,7 @@ bool completed()
             return false;
     return true;
 }
-int time_taken()
+  int time_taken()
 {
     int sum=0;
     for(int i=0;i<n2-1;i++)
