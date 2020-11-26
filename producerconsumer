@@ -36,7 +36,7 @@ void consumer()
     empty=signal(empty);
     if(x<=i)
     { 
-      printf("\nConsumer consumes items: %d",a[x]);
+      printf("\nConsumer consumes items : %d",a[x]);
       
     }
     x++;
