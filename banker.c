@@ -80,7 +80,7 @@ void main()
                         printf(" %d",total_resources[k]);
                     printf(" ]\n");
                 }
-                finished[i]=true;
+                 finished[i]=true;
             }
         }
     }
