@@ -49,7 +49,7 @@ struct sym
  }
  int key(int n)
  {
-  return(n%11);
+   return(n%11);
  }
  void hash(int key,int address,char label[20])
  {
