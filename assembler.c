@@ -3,7 +3,7 @@
 #include<string.h>
 struct line
 {
-    int address;
+     int address;
     char label[10];
     char operator[10];
     char operand[10];
