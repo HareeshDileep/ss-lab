@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap(int *xp, int *yp) 
+{ 
+    int temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+} 
+
+void fcfs() {
+  int r,  sum=0;
+  printf("Enter no. of requests : ");
+  scanf("%d", &r);
+  int arr[r+1];
+  printf("Initial Head Position : ");
+  scanf("%d", &arr[0]);
+  for(int i=1; i<=r; i++) {
+    scanf("%d", &arr[i]);
+  }
+  for(int i=1; i<=r; i++) {
+    printf("%d ", arr[i]);
+    sum += abs(arr[i]-arr[i-1]);
+  }
+  printf("\nSeek Time: %d\n", sum);
+  printf("Avg Seek Time: %d\n", sum/r);
+
+}
+
+void scan() {
+  int r,diskend, init, sum=0;
+  printf("Enter no. of requests : ");
+  scanf("%d", &r);
+  printf("Initial Head Position : ");
+  scanf("%d", &init);
+  printf("Disk End Position : ");
+  scanf("%d", &diskend);
+  int arr[r], arr2[r+2];
+  for(int i=0; i<r; i++) {
+    scanf("%d", &arr[i]);
+  }
+  
+  for (int i = 0; i < r-1; i++)       
+    for (int j = 0; j < r-i-1; j++)  
+      if (arr[j] > arr[j+1]) 
+        swap(&arr[j], &arr[j+1]);
+
+
+  int k=-1;
+  while(arr[++k] < init);
+  printf("%d\n", arr[k]);
+  int l=-1;
+  arr2[++l] = init;
+  for(int i=k; i<r; i++) {
+    arr2[++l] = arr[i];
+  }
+  arr2[++l] = diskend;
+  k--;
+  while(k>-1) {
+    arr2[++l] = arr[k--];
+  }
+
+  for(int i=1; i<=l; i++) {
+    sum += abs(arr[i]-arr[i-1]);
+  }
+
+  printf("\nSeek Time: %d\n", sum);
+  printf("Avg Seek Time: %d\n", sum/r);
+
+
+}
+
+
+int main(void) {
+  scan();
+  return 0;
+}
