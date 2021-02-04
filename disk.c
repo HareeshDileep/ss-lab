@@ -1,149 +1,137 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-int locations[30],n,n2,end,head_loc,head_index;
-int time_taken(int mode)
-{
-    int sum=0;
-    if(mode==1)
-    {
-        for(int i=0;i<n-1;i++)
-         sum=sum+abs(locations[i]-locations[i+1]);
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap(int *xp, int *yp) 
+{ 
+    int temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
+} 
+
+void fcfs() {
+    printf("FCFS\n");
+    int init, n, s=0;
+    printf("Enter no. of request : ");
+    scanf("%d", &n);
+    int arr[n+1];
+    printf("Enter initial head position : ");
+    scanf("%d", &arr[0]);
+    printf("Enter request sequence : ");
+    for(int i=1; i<=n; i++) {
+        scanf("%d", &arr[i]);
     }
-    else if(mode==2)
-        sum=abs(head_loc-locations[n-1])+abs(locations[n-1]-locations[0]);
-    else 
-        sum=abs(head_loc-end)+abs(0-end)+abs(0-locations[head_index-1]);
-    return sum;
+    printf("Scheduled sequence : ");
+    for(int i=1; i<=n; i++) {
+        printf("%d ", arr[i]);
+        s += abs(arr[i-1]-arr[i]);
+    }
+    printf("\nTotal seek time : %d", s);
+    printf("\nAverage seek time : %d\n", s/n);
 }
-void sort()
-{
-    for(int i=0;i<n-1;i++)
-        for(int j=0;j<n-i-1;j++)
-            if(locations[j]>locations[j+1])
-            {
-                int temp=locations[j];
-                locations[j]=locations[j+1];
-                locations[j+1]=temp;
-            }
- }
-void duplicate()
-{
-    for(int i=0;i<n;i++)
-        for(int j=0;j<n;j++)
-            if(i!=j&&locations[i]==locations[j])
-            {
-                int k;
-                for(k=j;k<n;k++)
-                locations[k]=locations[k+1];
-                n--;
-            }
-    for(int i=0;i<n;i++)
-        if(locations[i]==head_loc)
-            head_index=i;
+
+void scan() {
+    printf("SCAN\n");
+    int init, final, n, s=0, pos=0, mid;
+    printf("Enter no. of request : ");
+    scanf("%d", &n);
+    int arr[n], arr2[n+2];
+    printf("Enter initial head position : ");
+    scanf("%d", &init);
+    printf("Enter disk end position : ");
+    scanf("%d", &final);
+    printf("Enter request sequence : ");
+    for(int i=0; i<n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    for (int i = 0; i < n-1; i++)       
+        for (int j = 0; j < n-i-1; j++)  
+            if (arr[j] > arr[j+1]) 
+                swap(&arr[j], &arr[j+1]);
+                
+                
+    int w = -1;
+    while(arr[++w] <= init);
+    arr2[pos++] = init;
+    printf("Scheduled Sequence : ");
+    for(int i=w; i<n; i++) {
+        arr2[pos++] = arr[i];
+        printf("%d ", arr[i]);
+    }
+    arr2[pos++] = final;
+    for(int i=w-1; i>-1; i--) {
+        arr2[pos++] = arr[i];
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    for(int i=1; i<pos; i++) {
+        s += abs(arr2[i-1]-arr2[i]);
+    }
+    printf("\nTotal seek time : %d", s);
+    printf("\nAverage seek time : %d\n", s/n);
+    
 }
-void prepare(int mode)
-{
-    if(mode==1)//SCAN
-    {
-        locations[n]=end;
-        n=n+1;
+
+void cscan() {
+    printf("CSCAN\n");
+    int init, final, n, s=0, pos=0, mid;
+    printf("Enter no. of request : ");
+    scanf("%d", &n);
+    int arr[n], arr2[n+2];
+    printf("Enter initial head position : ");
+    scanf("%d", &init);
+    printf("Enter disk end position : ");
+    scanf("%d", &final);
+    printf("Enter request sequence : ");
+    for(int i=0; i<n; i++) {
+        scanf("%d", &arr[i]);
     }
-    else// C-SCAN
-    {
-        locations[n]=0;
-        locations[n+1]=end;
-        n=n+2;
+    for (int i = 0; i < n-1; i++)       
+        for (int j = 0; j < n-i-1; j++)  
+            if (arr[j] > arr[j+1]) 
+                swap(&arr[j], &arr[j+1]);
+                
+                
+    int w = -1;
+    while(arr[++w] <= init);
+    arr2[pos++] = init;
+    printf("Scheduled Sequence : ");
+    for(int i=w; i<n; i++) {
+        arr2[pos++] = arr[i];
+        printf("%d ", arr[i]);
     }
-    sort();
-    duplicate();
+    arr2[pos++] = final;
+    arr2[pos++] = 0;
+    for(int i=0; i<w; i++) {
+        arr2[pos++] = arr[i];
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    for(int i=1; i<pos; i++) {
+        s += abs(arr2[i-1]-arr2[i]);
+    }
+    printf("\nTotal seek time : %d", s);
+    printf("\nAverage seek time : %d\n", s/n);
+    
 }
-void fcfs()
-{
-    duplicate();
-    printf("THE ORDER IS:\n");
-    for(int i=0;i<n;i++)
-    printf("%d->",locations[i]);
-}
-void scan()
-{
-    prepare(1);
-    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n");
-    int i=head_index,temp=-1,q=0;
-    temp=i;
-    while(i!=n)
-    {
-        printf("%d->",locations[i]);
-        i++;
+
+int main() {
+    int choice;
+    while(1) {
+        printf("Choice : ");
+        scanf("%d", &choice);
+        switch(choice) {
+            case 1:
+                fcfs();
+                break;
+            case 2:
+                scan();
+                break;
+            case 3:
+                cscan();
+                break;
+            default:
+                return 0;
+        }
     }
-    i=temp;
-    if(temp-1>=0)
-        i=temp-1;
-    while(i>=0)
-    {
-        printf("%d->",locations[i]);
-        i--;
-    }
-}
-void cscan()
-{
-    prepare(2);
-    printf("HEAD IS CURRENTLY MOVING FROM L TO R\nTHE ORDER IS:\n");
-    int i=head_index,temp=-1;
-    while(i!=n)
-    {
-        printf("%d->",locations[i]);
-        i++;
-    }
-    i=0;
-    while(locations[i]<head_loc)
-    {
-        printf("%d->",locations[i]);
-        i++;
-    }
-}
-void menu()
-{
-    char loc_string[100];
-    int input,i=0,j=1;
-    printf("\n\nEnter the end position of the disk: ");
-    scanf("%d",&end);
-    printf("\nEnter the locations seperated by spaces: ");
-    fgets(loc_string,100,stdin);//Extra statement because of strange error
-    fgets(loc_string,100,stdin);
-    char* token=strtok(loc_string," ");
-    while(token!=NULL)
-    {
-        sscanf(token,"%d",&locations[j]);
-        token=strtok(NULL," ");
-        j++;
-    }
-    n=j;
-    n2=j;
-    printf("Enter the head location: ");
-    scanf("%d",&head_loc);
-    locations[0]=head_loc;
-    printf("\n1.FCFS\n2.SCAN\n3.CSCAN\n0.EXIT\nCHOOSE ALGORITHM: ");
-    scanf("%d",&input);
-    printf("\n\n");
-    switch(input)
-    {
-        case 1:fcfs();
-            break;
-        case 2:scan();
-            break;
-        case 3:cscan();
-            break;
-        case 0: exit(0);
-        default:menu();
-    }
-    printf("STOP");
-    printf("\n\nSEEK TIME: %d",time_taken(input));
-    printf("\nAVERAGE SEEK TIME: %d",time_taken(input)/n2);
-    menu();
-}
-int main()
-{
-    menu();
     return 0;
 }
